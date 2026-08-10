@@ -10,6 +10,7 @@ export default class Gameboard {
       row,
       column: col,
       occupied: null,
+      hit: false,
     })),
   ).flat();
 
@@ -89,10 +90,26 @@ export default class Gameboard {
         return false;
     }
   }
+
+  receiveAttack(row, column) {
+    const indexOfAttacked = this.#findSquareNodeIndex(row, column);
+    const cellHit = this.#cellNodes[indexOfAttacked];
+    if (cellHit.hit == true) {
+      return false;
+    }
+    cellHit.hit();
+    cellHit.hit = true;
+    return true;
+  }
 }
 const gameBoard1 = new Gameboard();
 gameBoard1.placeShip(9, 5, "Carrier");
 
-//prevent placement of ship if a ship is already there
-
 //delete method which deletes a ship in the gameBoard, just search through the cordsWithShips array see if its the propery ship then replace it with null
+
+//receiveAttack should not be able to attack a cell that was already attacked
+//if a cell has a ship part in it then call its hit function
+
+// the cellNode has another field which is hit. its false by default and true when the player choose to hit it.
+//then once rendering just check if hit is true and there is a ship then display the approriate
+// if hit is true and there were no ship then display a missed

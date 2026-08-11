@@ -75,7 +75,7 @@ export default class Gameboard {
     if (columnOutBound || rowOutBound) {
       return false;
     }
-
+    //Carrier, BattleShip
     switch (shipType) {
       case "Carrier": {
         const Carrier = this.#listOfShips[0];

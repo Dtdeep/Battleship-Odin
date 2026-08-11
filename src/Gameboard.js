@@ -3,6 +3,13 @@ import Ship from "./Ship.js";
 export default class Gameboard {
   #placedShips = [];
   #cordsWithShips = [];
+  #listOfShips = [
+    new Ship(5, "Carrier"),
+    new Ship(4, "Battleship"),
+    new Ship(3, "Destroyer"),
+    new Ship(3, "Submarine"),
+    new Ship(2, "Patrol Boat"),
+  ];
 
   // All 100 board cells for the 10x10 Battleship grid, each as {row+, column++, occupied}
   #cellNodes = Array.from({ length: 10 }, (_, row) =>
@@ -13,6 +20,10 @@ export default class Gameboard {
       hit: false,
     })),
   ).flat();
+
+  get allShips() {
+    return this.#listOfShips;
+  }
 
   get cellNodes() {
     return this.#cellNodes;
@@ -67,23 +78,23 @@ export default class Gameboard {
 
     switch (shipType) {
       case "Carrier": {
-        const Carrier = new Ship(5, "Carrier");
+        const Carrier = this.#listOfShips[0];
         return this.#manipulateCells(row, column, Carrier);
       }
       case "Battleship": {
-        const Battleship = new Ship(4, "Battleship");
+        const Battleship = this.#listOfShips[1];
         return this.#manipulateCells(row, column, Battleship);
       }
       case "Destroyer": {
-        const Destroyer = new Ship(3, "Destroyer");
+        const Destroyer = this.#listOfShips[2];
         return this.#manipulateCells(row, column, Destroyer);
       }
       case "Submarine": {
-        const Submarine = new Ship(3, "Submarine");
+        const Submarine = this.#listOfShips[3];
         return this.#manipulateCells(row, column, Submarine);
       }
       case "Patrol Boat": {
-        const pBoat = new Ship(2, "Patrol Boat");
+        const pBoat = this.#listOfShips[4];
         return this.#manipulateCells(row, column, pBoat);
       }
       default:
@@ -97,7 +108,10 @@ export default class Gameboard {
     if (cellHit.hit == true) {
       return false;
     }
-    cellHit.hit();
+
+    if (cellHit.occupied) {
+      cellHit.occupied.hit();
+    }
     cellHit.hit = true;
     return true;
   }

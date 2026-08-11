@@ -17,21 +17,24 @@ describe("Test Gameboard class query", () => {
     gameBoard5 = new Gameboard();
     gameBoard6 = new Gameboard();
   });
-  test("1 placeShip() greater than 10 cord arguments should return false", () => {
-    expect(gameBoard1.placeShip(11, 11, "Carrier")).toBe(false);
-    expect(gameBoard2.placeShip(10, 11, "Carrier")).toBe(false);
-    expect(gameBoard3.placeShip(11, 10, "Carrier")).toBe(false);
-    expect(gameBoard4.placeShip(91, 15, "Carrier")).toBe(false);
-    expect(gameBoard5.placeShip(10, 10, "Carrier")).toBe(false);
-  });
 
-  test("2 placeShip() less than 0 cord arguments should return false", () => {
-    expect(gameBoard1.placeShip(-1, -1, "Carrier")).toBe(false);
-    expect(gameBoard2.placeShip(0, -1, "Carrier")).toBe(false);
-    expect(gameBoard3.placeShip(-1, 0, "Carrier")).toBe(false);
-    expect(gameBoard4.placeShip(-324, -33, "Carrier")).toBe(false);
-  });
+  describe("Out of bounds", () => {
+    test("1 placeShip() greater than 10 cord arguments should return false", () => {
+      expect(gameBoard1.placeShip(11, 11, "Carrier")).toBe(false);
+      expect(gameBoard2.placeShip(10, 11, "Carrier")).toBe(false);
+      expect(gameBoard3.placeShip(11, 10, "Carrier")).toBe(false);
+      expect(gameBoard4.placeShip(91, 15, "Carrier")).toBe(false);
+      expect(gameBoard5.placeShip(10, 10, "Carrier")).toBe(false);
+    });
 
+    test("2 placeShip() less than 0 cord arguments should return false", () => {
+      expect(gameBoard1.placeShip(-1, -1, "Carrier")).toBe(false);
+      expect(gameBoard2.placeShip(0, -1, "Carrier")).toBe(false);
+      expect(gameBoard3.placeShip(-1, 0, "Carrier")).toBe(false);
+      expect(gameBoard4.placeShip(-324, -33, "Carrier")).toBe(false);
+    });
+  });
+  // describe("Overlaps / colisions", () => {});
   test("3 placeShip() Carrier rows should be 0-9 and columns 0-5, returns true", () => {
     expect(gameBoard1.placeShip(10, 10, "Carrier")).toBe(false);
     expect(gameBoard2.placeShip(0, 0, "Carrier")).toBe(true);
@@ -176,5 +179,42 @@ describe("Test Gameboard class commands", () => {
     expect(gameBoard1.cellNodes[5].occupied.name).toBe("Patrol Boat");
     expect(gameBoard1.cellNodes[6].occupied.name).toBe("Patrol Boat");
     expect(gameBoard1.cellNodes[7].occupied).toBe(null);
+  });
+
+  describe("Test attacking of cells with or without ships", () => {
+    test("hitting a ship should increase the counter and sink the ship if all ship cells are hit", () => {
+      const gameBoardTest = new Gameboard();
+      gameBoardTest.placeShip(0, 0, "Destroyer");
+      gameBoardTest.receiveAttack(0, 0);
+      expect(gameBoardTest.allShips[2].hitCounter).toBe(1);
+      gameBoardTest.receiveAttack(0, 1);
+      expect(gameBoardTest.cellNodes[1].hit).toBe(true);
+      expect(gameBoardTest.allShips[2].sinkStatus).toBe(false);
+
+      gameBoardTest.receiveAttack(0, 2);
+      expect(gameBoardTest.allShips[2].hitCounter).toBe(3);
+      expect(gameBoardTest.allShips[2].sinkStatus).toBe(true);
+    });
+
+    test("hitting a cell without a ship should just turn the cellNode hit into true", () => {
+      const gameBoard = new Gameboard();
+      expect(gameBoard.cellNodes[0].hit).toBe(false);
+      gameBoard.receiveAttack(0, 0);
+      expect(gameBoard.cellNodes[0].hit).toBe(true);
+
+      expect(gameBoard.cellNodes[35].hit).toBe(false);
+      gameBoard.receiveAttack(3, 5);
+      expect(gameBoard.cellNodes[35].hit).toBe(true);
+    });
+
+    test("Hitting a cell twice should not be allowed", () => {
+      const gameBoardTest2 = new Gameboard();
+      gameBoardTest2.placeShip(0, 0, "Destroyer");
+      gameBoardTest2.receiveAttack(0, 0);
+      expect(gameBoardTest2.receiveAttack(0, 0)).toBe(false);
+      expect(gameBoardTest2.allShips[2].hitCounter).toBe(1);
+    });
+
+    test;
   });
 });

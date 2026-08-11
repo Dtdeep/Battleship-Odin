@@ -110,6 +110,51 @@ describe("Test Gameboard class query", () => {
     expect(gameBoard1.placeShip(5, 3, "battlezhip")).toBe(false);
     expect(gameBoard1.placeShip(3, 3, "boat")).toBe(false);
   });
+
+  describe("isAllShipSunk should detect if all placed ships have sunk 1", () => {
+    test("Placing one boat and sinking it should make isAllShipSunk return true", () => {
+      const gameBoard = new Gameboard();
+      gameBoard.placeShip(0, 0, "Patrol Boat");
+      expect(gameBoard.isAllShipSunk()).toBe(false);
+
+      gameBoard.receiveAttack(0, 1);
+      gameBoard.receiveAttack(0, 0);
+      expect(gameBoard.isAllShipSunk()).toBe(true);
+    });
+    test("Placing one boat and sinking it should make isAllShipSunk return true", () => {
+      const gameBoard = new Gameboard();
+      gameBoard.placeShip(1, 0, "Carrier");
+      gameBoard.placeShip(2, 0, "Battleship");
+      gameBoard.placeShip(3, 0, "Destroyer");
+      gameBoard.placeShip(4, 0, "Submarine");
+      gameBoard.placeShip(5, 0, "Patrol Boat");
+      expect(gameBoard.isAllShipSunk()).toBe(false);
+
+      gameBoard.receiveAttack(1, 0);
+      gameBoard.receiveAttack(1, 1);
+      gameBoard.receiveAttack(1, 2);
+      gameBoard.receiveAttack(1, 3);
+      gameBoard.receiveAttack(1, 4);
+
+      gameBoard.receiveAttack(2, 0);
+      gameBoard.receiveAttack(2, 1);
+      gameBoard.receiveAttack(2, 2);
+      gameBoard.receiveAttack(2, 3);
+
+      gameBoard.receiveAttack(3, 0);
+      gameBoard.receiveAttack(3, 1);
+      gameBoard.receiveAttack(3, 2);
+
+      gameBoard.receiveAttack(4, 0);
+      gameBoard.receiveAttack(4, 1);
+      gameBoard.receiveAttack(4, 2);
+
+      gameBoard.receiveAttack(5, 0);
+      gameBoard.receiveAttack(5, 1);
+
+      expect(gameBoard.isAllShipSunk()).toBe(true);
+    });
+  });
 });
 
 describe("Test Gameboard class commands", () => {

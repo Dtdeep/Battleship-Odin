@@ -59,13 +59,13 @@ export default class Gameboard {
       this.#cellNodes[indexOfCell].occupied = ship;
       this.#cordsWithShips.push(indexOfCell);
     });
-    this.#placedShips.push(ship.name);
+    this.#placedShips.push(ship);
 
     return true;
   }
 
   placeShip(row, column, shipType) {
-    if (this.#placedShips.includes(shipType)) {
+    if (this.#placedShips.some((ship) => ship.name == shipType)) {
       return false;
     }
 
@@ -102,6 +102,18 @@ export default class Gameboard {
     }
   }
 
+  isAllShipSunk() {
+    if (
+      this.#placedShips.every((ship) => {
+        console.log(ship.sinkStatus);
+        return ship.sinkStatus;
+      })
+    ) {
+      return true;
+    }
+    return false;
+  }
+
   receiveAttack(row, column) {
     const indexOfAttacked = this.#findSquareNodeIndex(row, column);
     const cellHit = this.#cellNodes[indexOfAttacked];
@@ -117,11 +129,13 @@ export default class Gameboard {
   }
 }
 const gameBoard1 = new Gameboard();
-gameBoard1.placeShip(9, 5, "Carrier");
+gameBoard1.placeShip(0, 0, "Patrol Boat");
+gameBoard1.receiveAttack(0, 0);
+gameBoard1.receiveAttack(0, 1);
+console.log(gameBoard1.isAllShipSunk());
 
 //delete method which deletes a ship in the gameBoard, just search through the cordsWithShips array see if its the propery ship then replace it with null
 
-//receiveAttack should not be able to attack a cell that was already attacked
 //if a cell has a ship part in it then call its hit function
 
 // the cellNode has another field which is hit. its false by default and true when the player choose to hit it.

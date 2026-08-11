@@ -1,10 +1,18 @@
+import Gameboard from "./Gameboard.js";
+
 export default class Player {
   #playerType;
   #playerName;
+  #gameBoard;
 
   constructor(playerType, playerName) {
     this.#playerType = playerType;
     this.#playerName = playerName;
+    this.#gameBoard = new Gameboard();
+  }
+
+  get GameBoard() {
+    return this.#gameBoard;
   }
 
   get PlayerType() {

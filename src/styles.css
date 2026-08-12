@@ -1,3 +1,26 @@
-body {
+#boards-container {
+  background-color: red;
+  width: 910px;
+  height: 450px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 10px;
+}
+
+#board-1,
+#board-2 {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: blue;
+}
+
+.cell-node {
+  height: 45px;
+  width: 45px;
+  border: 2px solid black;
+}
+
+.cell-hit {
   background-color: red;
 }

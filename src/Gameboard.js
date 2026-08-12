@@ -116,8 +116,6 @@ export default class Gameboard {
 
   receiveAttack(row, column) {
     const indexOfAttacked = this.#findSquareNodeIndex(row, column);
-    console.log("attacked index", indexOfAttacked);
-
     const cellHit = this.#cellNodes[indexOfAttacked];
     if (cellHit.hit == true) {
       return false;

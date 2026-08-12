@@ -10,8 +10,11 @@ export const generateBoard = (player, boardContainter) => {
     div.dataset.row = cellNode.row;
     div.dataset.column = cellNode.column;
   });
-
-  //generate a boardUI with event listener
-  //for now this board should have preplaced ships
-  // the user clicks a cell and hits the cellNodes
 };
+
+export const deleteAllChild = (container) => {
+  container.replaceChildren();
+};
+//generate a boardUI with event listener
+//for now this board should have preplaced ships
+// the user clicks a cell and hits the cellNodes

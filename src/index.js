@@ -14,6 +14,21 @@ const playGame = (() => {
   const computerPlayer = new Computer();
   DoManipulation.generateBoard(computerPlayer, computerBoard);
   DoManipulation.generateBoard(player, playerBoard);
+
+  computerBoard.addEventListener("click", (e) => {
+    const targetRow = e.target.dataset.row;
+    const targetColumn = e.target.dataset.column;
+    const isValidAttack = computerPlayer.GameBoard.receiveAttack(
+      targetRow,
+      targetColumn,
+    );
+    if (!isValidAttack) {
+      alert("Not a valid attack");
+      return;
+    }
+    DoManipulation.deleteAllChild(computerBoard);
+    DoManipulation.generateBoard(computerPlayer, computerBoard);
+  });
 })();
 
 //generate each Player's boards

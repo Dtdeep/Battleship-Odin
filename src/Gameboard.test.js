@@ -161,55 +161,55 @@ describe("Test Gameboard class commands", () => {
   test("1 placing Carrier should reflect the cellNodes array", () => {
     const gameBoard1 = new Gameboard();
     gameBoard1.placeShip(0, 0, "Carrier");
-    expect(gameBoard1.cellNodes[0].occupied).toBeInstanceOf(Ship);
-    expect(gameBoard1.cellNodes[1].occupied).toBeInstanceOf(Ship);
-    expect(gameBoard1.cellNodes[2].occupied).toBeInstanceOf(Ship);
-    expect(gameBoard1.cellNodes[3].occupied).toBeInstanceOf(Ship);
-    expect(gameBoard1.cellNodes[4].occupied).toBeInstanceOf(Ship);
-    expect(gameBoard1.cellNodes[5].occupied).toBe(null);
+    expect(gameBoard1.CellNodes[0].occupied).toBeInstanceOf(Ship);
+    expect(gameBoard1.CellNodes[1].occupied).toBeInstanceOf(Ship);
+    expect(gameBoard1.CellNodes[2].occupied).toBeInstanceOf(Ship);
+    expect(gameBoard1.CellNodes[3].occupied).toBeInstanceOf(Ship);
+    expect(gameBoard1.CellNodes[4].occupied).toBeInstanceOf(Ship);
+    expect(gameBoard1.CellNodes[5].occupied).toBe(null);
   });
 
   test("2 placing of Carrier that goes out of bounds should not reflect the cellNodes array", () => {
     const gameBoard1 = new Gameboard();
     gameBoard1.placeShip(0, 6, "Carrier");
-    expect(gameBoard1.cellNodes[6].occupied).toBe(null);
-    expect(gameBoard1.cellNodes[7].occupied).toBe(null);
-    expect(gameBoard1.cellNodes[8].occupied).toBe(null);
-    expect(gameBoard1.cellNodes[9].occupied).toBe(null);
+    expect(gameBoard1.CellNodes[6].occupied).toBe(null);
+    expect(gameBoard1.CellNodes[7].occupied).toBe(null);
+    expect(gameBoard1.CellNodes[8].occupied).toBe(null);
+    expect(gameBoard1.CellNodes[9].occupied).toBe(null);
   });
 
   test("3 placing Battleship should reflect the cellNodes array", () => {
     const gameBoard1 = new Gameboard();
     gameBoard1.placeShip(0, 0, "Battleship");
-    expect(gameBoard1.cellNodes[0].occupied).toBeInstanceOf(Ship);
-    expect(gameBoard1.cellNodes[1].occupied).toBeInstanceOf(Ship);
-    expect(gameBoard1.cellNodes[2].occupied).toBeInstanceOf(Ship);
-    expect(gameBoard1.cellNodes[3].occupied).toBeInstanceOf(Ship);
-    expect(gameBoard1.cellNodes[4].occupied).toBe(null);
+    expect(gameBoard1.CellNodes[0].occupied).toBeInstanceOf(Ship);
+    expect(gameBoard1.CellNodes[1].occupied).toBeInstanceOf(Ship);
+    expect(gameBoard1.CellNodes[2].occupied).toBeInstanceOf(Ship);
+    expect(gameBoard1.CellNodes[3].occupied).toBeInstanceOf(Ship);
+    expect(gameBoard1.CellNodes[4].occupied).toBe(null);
   });
 
   test("4 placing Destroyer should reflect the cellNodes array", () => {
     const gameBoard1 = new Gameboard();
     gameBoard1.placeShip(0, 0, "Destroyer");
-    expect(gameBoard1.cellNodes[0].occupied).toBeInstanceOf(Ship);
-    expect(gameBoard1.cellNodes[1].occupied).toBeInstanceOf(Ship);
-    expect(gameBoard1.cellNodes[2].occupied).toBeInstanceOf(Ship);
-    expect(gameBoard1.cellNodes[3].occupied).toBe(null);
+    expect(gameBoard1.CellNodes[0].occupied).toBeInstanceOf(Ship);
+    expect(gameBoard1.CellNodes[1].occupied).toBeInstanceOf(Ship);
+    expect(gameBoard1.CellNodes[2].occupied).toBeInstanceOf(Ship);
+    expect(gameBoard1.CellNodes[3].occupied).toBe(null);
   });
   test("5 placing Submarine should reflect the cellNodes array", () => {
     const gameBoard1 = new Gameboard();
     gameBoard1.placeShip(0, 0, "Submarine");
-    expect(gameBoard1.cellNodes[0].occupied).toBeInstanceOf(Ship);
-    expect(gameBoard1.cellNodes[1].occupied).toBeInstanceOf(Ship);
-    expect(gameBoard1.cellNodes[2].occupied).toBeInstanceOf(Ship);
-    expect(gameBoard1.cellNodes[3].occupied).toBe(null);
+    expect(gameBoard1.CellNodes[0].occupied).toBeInstanceOf(Ship);
+    expect(gameBoard1.CellNodes[1].occupied).toBeInstanceOf(Ship);
+    expect(gameBoard1.CellNodes[2].occupied).toBeInstanceOf(Ship);
+    expect(gameBoard1.CellNodes[3].occupied).toBe(null);
   });
   test("6 placing Patrol Boat should reflect the cellNodes array", () => {
     const gameBoard1 = new Gameboard();
     gameBoard1.placeShip(0, 0, "Patrol Boat");
-    expect(gameBoard1.cellNodes[0].occupied).toBeInstanceOf(Ship);
-    expect(gameBoard1.cellNodes[1].occupied).toBeInstanceOf(Ship);
-    expect(gameBoard1.cellNodes[2].occupied).toBe(null);
+    expect(gameBoard1.CellNodes[0].occupied).toBeInstanceOf(Ship);
+    expect(gameBoard1.CellNodes[1].occupied).toBeInstanceOf(Ship);
+    expect(gameBoard1.CellNodes[2].occupied).toBe(null);
   });
 
   test("7 placing ships to an coordinate that already has a ship should not reflect the cellNodes", () => {
@@ -220,10 +220,10 @@ describe("Test Gameboard class commands", () => {
     gameBoard1.placeShip(0, 2, "Battleship");
     gameBoard1.placeShip(0, 4, "Battleship");
 
-    expect(gameBoard1.cellNodes[4].occupied).toBe(null);
-    expect(gameBoard1.cellNodes[5].occupied.name).toBe("Patrol Boat");
-    expect(gameBoard1.cellNodes[6].occupied.name).toBe("Patrol Boat");
-    expect(gameBoard1.cellNodes[7].occupied).toBe(null);
+    expect(gameBoard1.CellNodes[4].occupied).toBe(null);
+    expect(gameBoard1.CellNodes[5].occupied.name).toBe("Patrol Boat");
+    expect(gameBoard1.CellNodes[6].occupied.name).toBe("Patrol Boat");
+    expect(gameBoard1.CellNodes[7].occupied).toBe(null);
   });
 
   describe("Test attacking of cells with or without ships", () => {
@@ -231,25 +231,25 @@ describe("Test Gameboard class commands", () => {
       const gameBoardTest = new Gameboard();
       gameBoardTest.placeShip(0, 0, "Destroyer");
       gameBoardTest.receiveAttack(0, 0);
-      expect(gameBoardTest.allShips[2].hitCounter).toBe(1);
+      expect(gameBoardTest.AllShips[2].hitCounter).toBe(1);
       gameBoardTest.receiveAttack(0, 1);
-      expect(gameBoardTest.cellNodes[1].hit).toBe(true);
-      expect(gameBoardTest.allShips[2].sinkStatus).toBe(false);
+      expect(gameBoardTest.CellNodes[1].hit).toBe(true);
+      expect(gameBoardTest.AllShips[2].sinkStatus).toBe(false);
 
       gameBoardTest.receiveAttack(0, 2);
-      expect(gameBoardTest.allShips[2].hitCounter).toBe(3);
-      expect(gameBoardTest.allShips[2].sinkStatus).toBe(true);
+      expect(gameBoardTest.AllShips[2].hitCounter).toBe(3);
+      expect(gameBoardTest.AllShips[2].sinkStatus).toBe(true);
     });
 
     test("hitting a cell without a ship should just turn the cellNode hit into true", () => {
       const gameBoard = new Gameboard();
-      expect(gameBoard.cellNodes[0].hit).toBe(false);
+      expect(gameBoard.CellNodes[0].hit).toBe(false);
       gameBoard.receiveAttack(0, 0);
-      expect(gameBoard.cellNodes[0].hit).toBe(true);
+      expect(gameBoard.CellNodes[0].hit).toBe(true);
 
-      expect(gameBoard.cellNodes[35].hit).toBe(false);
+      expect(gameBoard.CellNodes[35].hit).toBe(false);
       gameBoard.receiveAttack(3, 5);
-      expect(gameBoard.cellNodes[35].hit).toBe(true);
+      expect(gameBoard.CellNodes[35].hit).toBe(true);
     });
 
     test("Hitting a cell twice should not be allowed", () => {
@@ -257,7 +257,7 @@ describe("Test Gameboard class commands", () => {
       gameBoardTest2.placeShip(0, 0, "Destroyer");
       gameBoardTest2.receiveAttack(0, 0);
       expect(gameBoardTest2.receiveAttack(0, 0)).toBe(false);
-      expect(gameBoardTest2.allShips[2].hitCounter).toBe(1);
+      expect(gameBoardTest2.AllShips[2].hitCounter).toBe(1);
     });
 
     test;

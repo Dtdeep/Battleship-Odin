@@ -21,11 +21,11 @@ export default class Gameboard {
     })),
   ).flat();
 
-  get allShips() {
+  get AllShips() {
     return this.#listOfShips;
   }
 
-  get cellNodes() {
+  get CellNodes() {
     return this.#cellNodes;
   }
 
@@ -36,9 +36,10 @@ export default class Gameboard {
       return -1;
     }
     const totalColumnsPerRow = 10;
-    const numberOfCellsBeforeTargetRow = targetRow * totalColumnsPerRow;
+    const numberOfCellsBeforeTargetRow =
+      parseInt(targetRow) * parseInt(totalColumnsPerRow);
     const indexOfMatchingSquareNode =
-      numberOfCellsBeforeTargetRow + targetColumn;
+      numberOfCellsBeforeTargetRow + parseInt(targetColumn);
 
     return indexOfMatchingSquareNode;
   }
@@ -105,7 +106,6 @@ export default class Gameboard {
   isAllShipSunk() {
     if (
       this.#placedShips.every((ship) => {
-        console.log(ship.sinkStatus);
         return ship.sinkStatus;
       })
     ) {
@@ -116,6 +116,8 @@ export default class Gameboard {
 
   receiveAttack(row, column) {
     const indexOfAttacked = this.#findSquareNodeIndex(row, column);
+    console.log("attacked index", indexOfAttacked);
+
     const cellHit = this.#cellNodes[indexOfAttacked];
     if (cellHit.hit == true) {
       return false;
@@ -128,11 +130,6 @@ export default class Gameboard {
     return true;
   }
 }
-const gameBoard1 = new Gameboard();
-gameBoard1.placeShip(0, 0, "Patrol Boat");
-gameBoard1.receiveAttack(0, 0);
-gameBoard1.receiveAttack(0, 1);
-console.log(gameBoard1.isAllShipSunk());
 
 //delete method which deletes a ship in the gameBoard, just search through the cordsWithShips array see if its the propery ship then replace it with null
 

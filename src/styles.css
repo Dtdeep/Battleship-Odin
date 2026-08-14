@@ -1,26 +1,62 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 #boards-container {
-  background-color: red;
+  background-color: white;
   width: 910px;
-  height: 450px;
+  height: 550px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
+  grid-template-rows: 50px 1fr;
   gap: 10px;
+  justify-items: center;
 }
 
 #board-1,
 #board-2 {
+  width: 450px;
+  height: 450px;
   display: flex;
   flex-wrap: wrap;
-  background-color: blue;
+  background-color: rgb(135, 135, 135);
 }
 
 .cell-node {
   height: 45px;
   width: 45px;
-  border: 2px solid black;
+  border: 1px solid rgb(66, 65, 65);
+}
+
+.game-environment {
+  display: flex;
 }
 
 .cell-hit {
-  background-color: red;
+  background-color: rgb(190, 103, 103);
+}
+
+.cell-occupied {
+  background-color: orange;
+}
+
+.cell-hit-occupied {
+  background-color: violet;
+}
+
+.ships {
+  user-select: none;
+}
+
+.ships > h2:hover {
+  color: lawngreen;
+}
+
+.ships > h2:active {
+  color: green;
 }

@@ -1,8 +1,14 @@
 export const generateBoard = (player, boardContainter) => {
   player.GameBoard.CellNodes.forEach((cellNode, index) => {
     const div = document.createElement("div");
-    if (cellNode.hit == true) {
+    if (cellNode.hit == true && cellNode.occupied) {
+      div.classList.add("cell-hit-occupied");
+    } else if (cellNode.hit == true) {
       div.classList.add("cell-hit");
+    } else if (cellNode.occupied) {
+      if (player.PlayerType == "Human") {
+        div.classList.add("cell-occupied");
+      }
     }
     div.classList.add("cell-node");
     boardContainter.append(div);

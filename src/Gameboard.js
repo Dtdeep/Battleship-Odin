@@ -25,6 +25,10 @@ export default class Gameboard {
     return this.#listOfShips;
   }
 
+  get PlacedShips() {
+    return this.#placedShips;
+  }
+
   get CellNodes() {
     return this.#cellNodes;
   }
